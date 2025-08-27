@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Welcome{% endblock %}
+
+{% block body %}
+<div class="text-center mt-5">
+    <h1 class="display-4">Welcome to my Symfony exercise</h1>
+    <p class="lead mt-3">Feeling especially lucky today?</p>
+
+    <div class="mt-4">
+        <a href="{{ path('number', {min: 0, max: 100}) }}" class="btn btn-primary btn-lg me-2">
+            Try your lucky number
+        </a>
+    </div>
+</div>
+{% endblock %}

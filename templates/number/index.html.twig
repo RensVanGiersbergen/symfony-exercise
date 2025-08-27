@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lucky Number{% endblock %}
+
+{% block body %}
+    <div class="text-center">
+        <h1 class="display-4 mb-4">🎲 Your lucky number is:</h1>
+        <p class="fs-1 fw-bold text-primary">{{ number }}</p>
+        <p class="text-muted">(between {{ min }} and {{ max }})</p>
+
+        <a href="{{ path('number', {min: min, max: max}) }}" class="btn btn-primary mt-3">
+            Generate Again
+        </a>
+        <p class="p-4"> Try adding a min and max like so: /number/3/5 in the url </p>
+        <p class="p-4"> Also try the <a href="{{ path('api_number') }}"> API endpoint </a>!</p>
+    </div>
+{% endblock %}
