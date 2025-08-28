@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1>Contact us!</h1>
+
+    <div class="mt-4">
+        {{ form_start(contactForm) }}
+            {{ form_row(contactForm.name) }}
+            {{ form_row(contactForm.topic) }}
+            {{ form_row(contactForm.message) }}
+            {{ form_row(contactForm.send) }}
+        {{ form_end(contactForm) }}
+    </div>
+
+    <p class="py-4 text-muted"> Names aren't supposed to have numbers, right? </p>
+</div>
+{% endblock %}
