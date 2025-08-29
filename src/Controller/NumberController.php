@@ -14,7 +14,7 @@ class NumberController extends AbstractController
     {
     }
 
-    // Endpoint: Generate a random number (between min and max)
+    // Page: Generate a random number (between min and max)
     #[Route('/number/{min}/{max}', name: 'number', requirements: ['min' => '\d+', 'max' => '\d+'])]
     public function number(int $min = 0, int $max = 100): Response
     {
