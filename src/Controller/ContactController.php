@@ -11,11 +11,14 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Mime\Address;
+use Symfony\Component\Mailer\MailerInterface;
 
 class ContactController extends AbstractController
 {
     #[Route('/contact', name: 'contact')]
-    public function contact(Request $request): Response
+    public function contact(Request $request, MailerInterface $mailer): Response
     {
         // DRY
         $notBlank = new NotBlank([
@@ -61,6 +64,20 @@ class ContactController extends AbstractController
         // Process the form submission
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
+
+            // Build and send email
+            $email = (new TemplatedEmail())
+                ->from(new Address('noreply@example.org', 'Contact form'))
+                ->to('test@example.org')
+                ->subject('New message: ' . $data['topic'])
+                ->htmlTemplate('emails/contact.html.twig')
+                ->context([
+                    'name' => $data['name'],
+                    'topic' => $data['topic'],
+                    'message' => $data['message'],
+                ]);
+
+            $mailer->send($email);
 
             $this->addFlash('success', sprintf(
                 'Thanks %s! Your message about "%s" was received',
